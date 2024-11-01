@@ -1,0 +1,101 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #ffca1c;
+    padding: 50px;
+}
+
+.container {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 10px;
+    background-color: #ff9900;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.stats p {
+    font-size: 1.2em;
+}
+
+/* Стиль кнопки с изображением */
+.image-button {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto; /* Центрирование кнопки */
+    transition: transform 0.5s ease, opacity 0.3s ease; /* Плавный переход для увеличения */
+}
+
+.image-button img {
+    width: 100px;
+    height: 100px;
+}
+
+/* Увеличение кнопки при наведении */
+.image-button:hover {
+    transform: scale(1.1); /* Увеличиваем на 10% */
+    opacity: 0.9; /* Немного уменьшаем непрозрачность для эффекта */
+}
+
+.button {
+    margin: 10px auto; /* Центрирование кнопки */
+    padding: 10px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    display: block; /* Отображение блока для центрирования */
+    transition: background-color 0.3s ease, transform 0.5s ease; /* Плавный переход для кнопки */
+}
+
+/* Анимация для кнопки при достаточном количестве очков */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2); /* Увеличиваем на 20% */
+    }
+}
+
+.button.pulsing {
+    animation: pulse 0.6s infinite; /* Анимация увеличения и уменьшения */
+}
+
+.button:hover {
+    background-color: #45a049;
+    transform: scale(1.05); /* Увеличиваем на 5% при наведении */
+}
+
+/* Медиа-запросы для мобильных устройств */
+@media (max-width: 768px) {
+    body {
+        padding: 20px; /* Уменьшаем отступы для мобильных устройств */
+    }
+
+    .container {
+        width: 90%; /* Ширина контейнера на мобильных устройствах */
+        padding: 10px; /* Уменьшаем внутренние отступы */
+        font-size: 0.9em; /* Уменьшаем размер шрифта */
+    }
+
+    .stats p {
+        font-size: 1em; /* Уменьшаем размер текста */
+    }
+
+    .image-button img {
+        width: 80px; /* Уменьшаем размер изображения */
+        height: 80px; /* Уменьшаем размер изображения */
+    }
+
+    .button {
+        padding: 8px 15px; /* Уменьшаем отступы для кнопки */
+        font-size: 0.9em; /* Уменьшаем размер шрифта для кнопки */
+    }
+}
