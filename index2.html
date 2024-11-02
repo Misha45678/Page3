@@ -1,29 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="favinco.png" type="image/x-icon">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Кликер</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <button class="open-shop-button" id="openShopButton">Магазин</button>
+    <div class="points-container">
+    </div>
     <div class="container">
-        <h1>
-            Кликер
-        </h1>
+        <h1>Хамстер!🐹</h1>
         <div class="stats">
             <p>Очки: <span id="points">0</span></p>
             <p>Уровень: <span id="level">1</span></p>
+            <p>Очки в секунду: <span id="pointsPerSecond">0</span></p>
             <p>Стоимость повышения уровня: <span id="levelUpCost">100</span></p>
         </div>
-        <!-- Кнопка для начисления очков -->
-        <button id="clickButton" class="image-button">
-            <img src="click-image.png" alt="Click me">
-        </button>
-        <!-- Кнопка для повышения уровня -->
-        <button id="levelUpButton" class="button">Повысить уровень</button>
+        <div class="buttons-container">
+            <button id="clickButton" class="image-button">
+                <img src="click-image.png" alt="Click me">
+            </button>
+            <button id="levelUpButton" class="button">Повысить уровень</button>
+        </div>
     </div>
+    <div class="shop-container" id="shopContainer">
+        <button class="close-button" id="closeShopButton">Закрыть</button>
+        <div id="shopItemsWrapper">
+            <div class="shop-item" data-price="100" data-autoclicker="true">
+                <p>Автокликер</p>
+                <img src="autoclicker-image.png" alt="Автокликер" class="shop-image">
+                <button class="buy-button">100$</button>
+                <div class="shop-item" data-price="200">
+                    <p>Сидень</p>
+                    <img src="button2-image.png" alt="Кнопка 2" class="shop-image">
+                    <button class="buy-button">200$</button>
+                </div>
+                <!-- Кнопка 3 -->
+                <div class="shop-item" data-price="300">
+                    <p>Горб</p>
+                    <img src="button3-image.png" alt="Кнопка 3" class="shop-image">
+                    <button class="buy-button">300$</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="notification" class="notification">Успешно!</div>
     <script src="script.js"></script>
 </body>
 </html>
