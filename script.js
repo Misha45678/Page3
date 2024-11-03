@@ -14,6 +14,7 @@ const openShopButton = document.getElementById('openShopButton');
 const closeShopButton = document.getElementById('closeShopButton');
 const shopContainer = document.getElementById('shopContainer');
 const notification = document.getElementById('notification');
+const buttonsContainer = document.querySelector('.buttons-container');
 
 // Обновляем отображение очков и уровня
 function updateDisplay() {
@@ -79,18 +80,84 @@ buyButtons.forEach(button => {
 
         if (points >= price) {
             points -= price;
-            autoclickers++;
-            pointsPerSecond += 1;
-            autoclickerPrice = Math.round(autoclickerPrice * 1.5);
-            item.setAttribute('data-price', autoclickerPrice);
-            event.target.textContent = `${autoclickerPrice}$`;
+
+            // Проверяем, если это не автокликер
+            if (!item.getAttribute('data-autoclicker')) {
+                // Замена основной кнопки на новую с изображением купленного предмета
+                const newButton = document.createElement('button');
+                newButton.id = 'clickButton';
+                newButton.classList.add('image-button');
+                newButton.innerHTML = `<img src="${item.querySelector('.shop-image').src}" alt="${item.querySelector('p').textContent}">`;
+
+                // Добавление обработчика клика для новой кнопки
+                newButton.addEventListener('click', () => {
+                    points += level; // Количество очков за клик можно менять
+                    updateDisplay();
+                });
+
+                // Заменяем старую кнопку новой
+                buttonsContainer.replaceChild(newButton, clickButton);
+
+                // Устанавливаем текст кнопки "Куплено" и отключаем её
+                event.target.textContent = 'Куплено';
+                event.target.disabled = true;
+
+                // Обновляем ссылку на новую кнопку
+                clickButton = newButton;
+            } else {
+                autoclickers++;
+                pointsPerSecond += 1;
+                autoclickerPrice = Math.round(autoclickerPrice * 1.5);
+                item.setAttribute('data-price', autoclickerPrice);
+                event.target.textContent = `${autoclickerPrice}$`;
+            }
+
             updateDisplay();
             showNotification('Успешно!');
+
+            // Обновляем доступность скинов после покупки
+            updateSkinsAvailability(item.getAttribute('data-skin'));
+
         } else {
             alert('Недостаточно очков для покупки!');
         }
     });
 });
+
+openSkinsButton.addEventListener('click', () => {
+    skinsContainer.classList.add('open');
+});
+closeSkinsButton.addEventListener('click', () => {
+    skinsContainer.classList.remove('open');
+});
+
+// Обработчик выбора скина
+const selectSkinButtons = document.querySelectorAll('.select-skin-button');
+selectSkinButtons.forEach(button => {
+    button.addEventListener('click', (event) => {
+        const skinItem = event.target.closest('.skin-item');
+        const isPurchased = skinItem.getAttribute('data-purchased') === 'true';
+
+        if (isPurchased) {
+            const skinImage = skinItem.getAttribute('data-skin');
+            clickButton.querySelector('img').src = skinImage;
+            showNotification('Скин изменен!');
+        } else {
+            showNotification('Скин не куплен!');
+        }
+    });
+});
+
+// Функция для обновления статуса доступности скинов после покупки
+function updateSkinsAvailability(skin) {
+    const skinItems = document.querySelectorAll('.skin-item');
+    skinItems.forEach(skinItem => {
+        if (skinItem.getAttribute('data-skin') === skin) {
+            skinItem.setAttribute('data-purchased', 'true');
+            skinItem.querySelector('.select-skin-button').disabled = false;
+        }
+    });
+}
 
 // Автокликеры добавляют очки
 setInterval(() => {
